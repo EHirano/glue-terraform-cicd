@@ -6,7 +6,7 @@ resource "aws_s3_bucket" "artifacts" {
   bucket = var.artifacts_bucket_name
 
   tags = {
-    Name        = "glue-artifacts-bucket"
+    Name        = var.artifacts_bucket_name
     Environment = var.environment
     Project     = "GlueETL"
   }
