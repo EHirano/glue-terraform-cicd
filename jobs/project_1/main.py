@@ -1,1 +1,5 @@
-from glue_helpers.extract import extract_data
+from glue_helpers import extract
+
+
+def main():
+    pass
