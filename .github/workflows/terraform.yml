@@ -19,7 +19,7 @@ concurrency:
 
 env:
   AWS_REGION: us-east-1
-  ARTIFACTS_BUCKET: gluejobs-607522033592-artifacts-cicd-terraform-project
+  ARTIFACTS_BUCKET: glue-cicd-project-artifacts-bucket-dev
   GLUE_SCRIPTS_BUCKET: aws-glue-assets-607522033592-us-east-1
 
 jobs:
@@ -30,6 +30,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.11.4
 
       - name: Check Terraform formatting
         working-directory: terraform
@@ -78,7 +83,7 @@ jobs:
                 aws s3 cp "$source_file" "$target_path"
                 echo "- $source_file → $target_path" >> deployed_jobs.txt
               else
-                echo "❌ Missing $source_file"
+                echo "Missing $source_file"
                 exit 1
               fi
             fi
